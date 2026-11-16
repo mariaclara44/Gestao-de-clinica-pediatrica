@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Crianças — Clínica Pequenos Passos</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f8f9fa; margin: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; background: white; padding: 15px 20px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .actions { margin: 20px 0; display: flex; justify-content: space-between; align-items: center; }
+        table { width: 100%; border-collapse: collapse; background: white; border-radius: 6px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #007bff; color: white; }
+        tr:hover { background-color: #f1f1f1; }
+        .btn { padding: 8px 12px; text-decoration: none; border-radius: 4px; font-size: 14px; color: white; display: inline-block; }
+        .btn-green { background-color: #28a745; }
+        .btn-purple { background-color: #6f42c1; }
+        .btn-blue { background-color: #17a2b8; }
+        .btn-red { background-color: #dc3545; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h2>Clínica Pequenos Passos — Crianças</h2>
+        <div>
+            <span>Bem-vindo, <strong><%= usuario.nome %></strong>!</span> |
+            <form action="/logout" method="POST" style="display:inline">
+                <button type="submit" style="border:0;background:none;color:#dc3545;cursor:pointer">Sair</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="actions">
+        <div>
+            <a href="/criancas/novo" class="btn btn-green">+ Cadastrar Criança</a>
+            <a href="/responsaveis" class="btn btn-purple">Responsáveis</a>
+            <a href="/atendimentos" class="btn btn-blue">Atendimentos</a>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome da Criança</th>
+                <th>Data de Nascimento</th>
+                <th>Responsável</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (criancas.length === 0) { %>
+                <tr>
+                    <td colspan="5" style="text-align: center; color: #888;">Nenhuma criança encontrada.</td>
+                </tr>
+            <% } else { %>
+                <% criancas.forEach(crianca => { %>
+                    <tr>
+                        <td><%= crianca.id %></td>
+                        <td><strong><%= crianca.nome %></strong></td>
+                        <td><%= new Date(crianca.data_nascimento).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) %></td>
+                        <td><%= crianca.nome_responsavel %></td>
+                        <td>
+                            <a href="/criancas/editar/<%= crianca.id %>" class="btn btn-blue">Editar</a>
+                            <form action="/criancas/deletar/<%= crianca.id %>" method="POST" style="display:inline" onsubmit="return confirm('Tem certeza que deseja excluir esta criança?')">
+                                <button type="submit" class="btn btn-red" style="border:0;cursor:pointer">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            <% } %>
+        </tbody>
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Início — Clínica Pequenos Passos</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f8f9fa; margin: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; background: white; padding: 15px 20px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .card { background: white; padding: 25px; margin: 20px 0; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .links { display: flex; gap: 10px; flex-wrap: wrap; }
+        .btn { padding: 10px 15px; text-decoration: none; border-radius: 4px; color: white; display: inline-block; }
+        .btn-blue { background-color: #007bff; }
+        .btn-green { background-color: #28a745; }
+        .btn-purple { background-color: #6f42c1; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Clínica Pequenos Passos</h2>
+            <div>
+                <span>Bem-vindo, <strong><%= usuario.nome %></strong>!</span> |
+                <form action="/logout" method="POST" style="display:inline">
+                    <button type="submit" style="border:0;background:none;color:#dc3545;cursor:pointer">Sair</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Painel Principal</h3>
+            <p>Bem-vindo ao sistema de gestão da Clínica Pequenos Passos.</p>
+            <p>Selecione um módulo para continuar:</p>
+
+            <div class="links">
+                <a href="/responsaveis" class="btn btn-blue">Responsáveis</a>
+                <a href="/criancas" class="btn btn-green">Crianças</a>
+                <a href="/atendimentos" class="btn btn-purple">Atendimentos</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Atendimento — Clínica Pequenos Passos</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f8f9fa; display: flex; justify-content: center; padding-top: 40px; }
+        .form-card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); width: 420px; }
+        h2 { margin-top: 0; color: #333; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; color: #555; }
+        input, select { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        .btn-group { margin-top: 20px; display: flex; justify-content: space-between; }
+        button { padding: 10px 15px; background: #17a2b8; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .btn-cancel { padding: 10px 15px; background: #6c757d; color: white; text-decoration: none; border-radius: 4px; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="form-card">
+        <h2>Editar Atendimento</h2>
+        <form action="/atendimentos/editar/<%= atendimento.id %>" method="POST">
+            <div class="form-group">
+                <label>Criança:</label>
+                <select name="crianca_id" required>
+                    <option value="">-- Selecione uma Criança --</option>
+                    <% criancas.forEach(crianca => { %>
+                        <option value="<%= crianca.id %>" <%= crianca.id === atendimento.crianca_id ? 'selected' : '' %>>
+                            <%= crianca.nome %>
+                        </option>
+                    <% }); %>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Data do Atendimento:</label>
+                <input type="date" name="data_atendimento" value="<%= atendimento.data_atendimento %>" required>
+            </div>
+
+            <div class="form-group">
+                <label>Horário:</label>
+                <input type="time" name="horario" value="<%= atendimento.horario %>" required>
+            </div>
+
+            <div class="form-group">
+                <label>Motivo:</label>
+                <input type="text" name="motivo" value="<%= atendimento.motivo %>" required>
+            </div>
+
+            <div class="form-group">
+                <label>Situação:</label>
+                <select name="situacao" required>
+                    <option value="Agendado" <%= atendimento.situacao === 'Agendado' ? 'selected' : '' %>>Agendado</option>
+                    <option value="Realizado" <%= atendimento.situacao === 'Realizado' ? 'selected' : '' %>>Realizado</option>
+                    <option value="Cancelado" <%= atendimento.situacao === 'Cancelado' ? 'selected' : '' %>>Cancelado</option>
+                </select>
+            </div>
+
+            <div class="btn-group">
+                <a href="/atendimentos" class="btn-cancel">Cancelar</a>
+                <button type="submit">Atualizar Atendimento</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Responsáveis — Clínica Pequenos Passos</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f8f9fa; margin: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; background: white; padding: 15px 20px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .actions { margin: 20px 0; display: flex; justify-content: space-between; align-items: center; }
+        table { width: 100%; border-collapse: collapse; background: white; border-radius: 6px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #007bff; color: white; }
+        tr:hover { background-color: #f1f1f1; }
+        .btn { padding: 8px 12px; text-decoration: none; border-radius: 4px; font-size: 14px; color: white; display: inline-block; }
+        .btn-green { background-color: #28a745; }
+        .btn-purple { background-color: #6f42c1; }
+        .btn-blue { background-color: #17a2b8; }
+        .btn-red { background-color: #dc3545; }
+        .search-box input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; width: 220px; }
+        .search-box button { padding: 8px 12px; background: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h2>Clínica Pequenos Passos — Responsáveis</h2>
+        <div>
+            <span>Bem-vindo, <strong><%= usuario.nome %></strong>!</span> |
+            <form action="/logout" method="POST" style="display:inline">
+                <button type="submit" style="border:0;background:none;color:#dc3545;cursor:pointer">Sair</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="actions">
+        <div>
+            <a href="/responsaveis/novo" class="btn btn-green">+ Cadastrar Responsável</a>
+            <a href="/criancas" class="btn btn-purple">Crianças</a>
+            <a href="/atendimentos" class="btn btn-blue">Atendimentos</a>
+        </div>
+
+        <form action="/responsaveis" method="GET" class="search-box">
+            <input type="text" name="busca" placeholder="Buscar por responsável..." value="<%= busca %>">
+            <button type="submit">Buscar</button>
+            <% if (busca) { %>
+                <a href="/responsaveis" style="margin-left: 5px; font-size: 13px; color: #6c757d;">Limpar filtro</a>
+            <% } %>
+        </form>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>E-mail</th>
+                <th>Telefone</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (responsaveis.length === 0) { %>
+                <tr>
+                    <td colspan="6" style="text-align: center; color: #888;">Nenhum responsável encontrado.</td>
+                </tr>
+            <% } else { %>
+                <% responsaveis.forEach(responsavel => { %>
+                    <tr>
+                        <td><%= responsavel.id %></td>
+                        <td><strong><%= responsavel.nome %></strong></td>
+                        <td><%= responsavel.cpf %></td>
+                        <td><%= responsavel.email %></td>
+                        <td><%= responsavel.telefone %></td>
+                        <td>
+                            <a href="/responsaveis/editar/<%= responsavel.id %>" class="btn btn-blue">Editar</a>
+                            <form action="/responsaveis/deletar/<%= responsavel.id %>" method="POST" style="display:inline" onsubmit="return confirm('Tem certeza que deseja excluir este responsável?')">
+                                <button type="submit" class="btn btn-red" style="border:0;cursor:pointer">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            <% } %>
+        </tbody>
+    </table>
+
+</body>
+</html>
