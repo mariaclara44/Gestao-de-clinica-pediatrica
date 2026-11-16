@@ -1,4 +1,3 @@
-
 -- 1. Tabela de usuários
 CREATE TABLE IF NOT EXISTS usuarios (
     id SERIAL PRIMARY KEY,
