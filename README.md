@@ -1,39 +1,90 @@
 # Clínica Pediátrica Pequenos Passos
 
-Projeto local com Node.js, Express, EJS, PostgreSQL e sessões.
+Sistema web local para gerenciamento de responsáveis, crianças e atendimentos.
 
-## 1. Banco de dados
-Crie um banco novo chamado `clinica_pediatrica` no PostgreSQL e execute o arquivo `schema.sql`. Use um banco separado para não misturar as tabelas antigas de produtos e grupos.
-A conexão está configurada para a porta `7777`, conforme o projeto de referência. Se sua instalação usar outra porta, ajuste `DB_PORT` no ambiente ou em `db.js`.
+## Tecnologias utilizadas
 
-## 2. Instalação
-Dentro da pasta do projeto, execute:
+- Node.js
+- Express
+- EJS
+- PostgreSQL
+- pg
+- bcrypt
+- express-session
+
+## Pré-requisitos
+
+- Node.js instalado.
+- PostgreSQL instalado e em execução.
+- pgAdmin (opcional, para administrar o banco de dados).
+
+## Configuração do banco de dados
+
+1. Crie um banco de dados chamado `clinica_pediatrica`.
+2. Abra o **Query Tool** dentro desse banco.
+3. Execute o conteúdo do arquivo `clinica_pediatrica.sql`.
+4. Verifique se as quatro tabelas foram criadas e se existem pelo menos três registros em cada uma.
+
+## Configuração da conexão
+
+Confira o arquivo `db.js` e ajuste o usuário, a senha e a porta conforme a instalação local do PostgreSQL.
+
+Configuração utilizada no projeto:
+
+- **Host:** `localhost`
+- **Database:** `clinica_pediatrica`
+- **Port:** `7777`
+- **User:** `postgres`
+- **Password:** senha local configurada no PostgreSQL.
+
+> **Importante:** Não publique credenciais reais no repositório.
+
+## Instalação e execução
+
+No terminal, dentro da pasta do projeto, execute:
 
 ```bash
 npm install
 ```
 
-Foi utilizado `bcryptjs` no lugar de `bcrypt` para evitar a dependência de compilação nativa que pode causar erro de binding em algumas versões do Node.
+Em seguida, inicie a aplicação:
 
-## 3. Dados de teste
-Execute:
-
-```bash
-npm run seed
-```
-
-Login de teste:
-- CPF: `11111111111`
-- Senha: `123456`
-
-Os CPFs de teste são fictícios.
-
-## 4. Executar
 ```bash
 npm start
 ```
 
-Abra `http://localhost:3000`.
+A aplicação estará disponível em:
 
-## Observação importante sobre CPF
-Este projeto didático usa CPF fictício em campo identificador para demonstrar o login e a validação. Para uso real, não utilize este modelo sem implementar proteção adequada dos CPFs, gestão segura de chaves e controles de acesso.
+[http://localhost:3000](http://localhost:3000)
+
+## Acesso de demonstração
+
+O script SQL inclui operadores de teste com senhas protegidas por hash bcrypt.
+
+**Primeiro operador:**
+
+- **CPF:** `111.444.777-35`
+- **Senha:** `Clinica123`
+
+> Utilize somente dados fictícios no ambiente de demonstração.
+
+## Funcionalidades
+
+- Login de operador com autenticação e gerenciamento de sessão.
+- Página inicial com identificação do operador autenticado.
+- Cadastro, listagem, edição, exclusão e busca de responsáveis.
+- Cadastro, listagem, edição e exclusão de crianças vinculadas aos responsáveis.
+- Cadastro, listagem, edição e exclusão de atendimentos vinculados às crianças.
+- Listagem de atendimentos utilizando `JOIN` e ordenação por data e horário.
+
+## Observações importantes
+
+- Não inclua a pasta `node_modules` na entrega.
+- Não versione senhas reais, chaves ou credenciais.
+- O esquema atual armazena CPFs como texto. A exigência de proteção criptográfica dos CPFs, prevista na atividade, ainda precisa ser implementada para que a versão final esteja em conformidade.
+- Confira as configurações locais do PostgreSQL antes de executar o projeto.
+
+------
+
+**Clínica Pediátrica Pequenos Passos**  
+Sistema de gerenciamento desenvolvido com Node.js, Express e PostgreSQL.
